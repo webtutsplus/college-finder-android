@@ -37,22 +37,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Button button = new Button(this);
-        button.setText("Search this area");
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.gravity=Gravity.FILL_HORIZONTAL;
-        addContentView(button,lp);
-
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                //Intent i=new Intent(this,SecondActivity.class);
-                //startActivity(i);
-
-            }
-        });
+//        Button button = new Button(this);
+//        button.setText("Search this area");
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        lp.gravity=Gravity.FILL_HORIZONTAL;
+//        addContentView(button,lp);
+//
+//        button.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                // TODO Auto-generated method stub
+//                //Intent i=new Intent(this,SecondActivity.class);
+//                //startActivity(i);
+//
+//            }
+//        });
 
 
     }
