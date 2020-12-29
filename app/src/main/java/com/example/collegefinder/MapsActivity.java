@@ -3,6 +3,7 @@ package com.example.collegefinder;
 import androidx.fragment.app.FragmentActivity;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -79,7 +80,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 @Override
                 public void onInfoWindowClick(Marker marker) {
                     College college = (College)marker.getTag();
-                    
+                    Intent collegeInfo = new Intent(getApplicationContext(),InfoActivity.class);
+                    collegeInfo.putExtra("title",college.getmTitle());
+                    collegeInfo.putExtra("desc",college.getmDescription());
+                    collegeInfo.putExtra("established",college.getmEstablished());
+                    collegeInfo.putExtra("city",college.getmCity());
+                    startActivity(collegeInfo);
                 }
             });
         }
