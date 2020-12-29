@@ -2,11 +2,10 @@ package com.example.collegefinder;
 
 import androidx.fragment.app.FragmentActivity;
 
-import android.content.Context;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -66,10 +65,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             for  (int i = 0; i < 5; i++) {
                 Double latitude = Double.parseDouble(mCollegeList.get(i).getmLatitude());
                 Double longitude = Double.parseDouble(mCollegeList.get(i).getmLongitude());
+                String title = mCollegeList.get(i).getmTitle();
                 String city = mCollegeList.get(i).getmCity();
 
                 LatLng coordinate = new LatLng(latitude, longitude);
-                mMap.addMarker(new MarkerOptions().position(coordinate).title(city));
+                mMap.addMarker(new MarkerOptions().position(coordinate).title(city).snippet(title));
             }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(20.5937, 82.9629)));
             mMap.moveCamera(CameraUpdateFactory.zoomTo(4));

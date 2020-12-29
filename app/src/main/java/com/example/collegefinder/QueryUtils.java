@@ -110,6 +110,9 @@ public final class QueryUtils {
                 // Get a single earthquake at position i within the list of earthquakes
                 JSONObject currentCollege = collegeArray.getJSONObject(i);
 
+                // Extract the value for the key called "title"
+                String title = currentCollege.getString("title");
+
                 // Extract the value for the key called "city"
                 String city = currentCollege.getString("city");
 
@@ -119,9 +122,15 @@ public final class QueryUtils {
                 // Extract the value for the key called "longitude"
                 String longitude = currentCollege.getString("longitude");
 
+                // Extract the value for the key called "description"
+                String description = currentCollege.getString("description");
+
+                // Extract the value for the key called "established"
+                String established = currentCollege.getString("established_in");
+
                 // Create a new {@link College} object with the city, latitude, longitude
                 // from the JSON response.
-                College college = new College(city, latitude, longitude);
+                College college = new College(title, city, latitude, longitude, description, established);
 
                 // Add the new {@link College} to the list of earthquakes.
                 colleges.add(college);
