@@ -2,8 +2,11 @@ package com.example.collegefinder;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -11,9 +14,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private List<College> mCollegeList;
+    private String url = "http://134.209.156.1:5000/api";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +45,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //Fetch Colleges from API
+        CollegeAsyncTask task = new CollegeAsyncTask();
+        task.execute(url);
+    }
+
+
+    //Executing network call on background task
+    private class CollegeAsyncTask extends AsyncTask<String, Void, List<College>> {
+        @Override
+        protected List<College> doInBackground(String... url) {
+                List<College> result = QueryUtils.fetchTutorialData(url[0]);
+                return result;
+        }
+
+
+        @Override
+        protected void onPostExecute(List<College> result) {
+            mCollegeList = result;
+            for  (int i = 0; i < 5; i++) {
+                Double latitude = Double.parseDouble(mCollegeList.get(i).getmLatitude());
+                Double longitude = Double.parseDouble(mCollegeList.get(i).getmLongitude());
+                String city = mCollegeList.get(i).getmCity();
+
+                LatLng coordinate = new LatLng(latitude, longitude);
+                mMap.addMarker(new MarkerOptions().position(coordinate).title(city));
+            }
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(20.5937, 82.9629)));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(4));
+        }
     }
 }
+
