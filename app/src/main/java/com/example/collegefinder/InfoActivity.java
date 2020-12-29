@@ -29,7 +29,7 @@ public class InfoActivity extends AppCompatActivity {
 
         titleView.setText(title);
         descriptionView.setText(description);
-        establishedView.setText(established);
+        establishedView.setText("Established in - "+established);
         cityView.setText(city);
 
 
