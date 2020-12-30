@@ -7,15 +7,16 @@ public class College {
     private String mLongitude;
     private String mDescription;
     private String mEstablished;
+    private String mImageURL;
 
-
-    public College(String title, String city, String latitude, String longitude, String description, String established) {
+    public College(String title, String city, String latitude, String longitude, String description, String established, String imageURL) {
         this.mTitle = title;
         this.mCity = city;
         this.mLatitude = latitude;
         this.mLongitude = longitude;
         this.mDescription = description;
         this.mEstablished = established;
+        this.mImageURL = imageURL;
     }
 
     public String getmCity() {
@@ -40,5 +41,9 @@ public class College {
 
     public String getmEstablished() {
         return mEstablished;
+    }
+
+    public String getmImageURL() {
+        return mImageURL;
     }
 }

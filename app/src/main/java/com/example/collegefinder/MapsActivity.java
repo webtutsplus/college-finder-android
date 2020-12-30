@@ -124,6 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     collegeInfo.putExtra("desc",college.getmDescription());
                     collegeInfo.putExtra("established",college.getmEstablished());
                     collegeInfo.putExtra("city",college.getmCity());
+                    collegeInfo.putExtra("imageURL",college.getmImageURL());
                     startActivity(collegeInfo);
                 }
             });

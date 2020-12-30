@@ -20,6 +20,7 @@ import java.util.List;
 
 public final class QueryUtils {
 
+    private static final String defaultCollegeImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2Uzd92OqsPDOWV22tAUZYSkLAqlMqxh7yloM9x1IHF9yazxCEr0bh35-3YSbSKrWENRvJ2ErOBTnAd_H4bpYW9e51g3GDAp02Aw&usqp=CAU&ec=45750089";
     private QueryUtils(){
     }
 
@@ -128,9 +129,13 @@ public final class QueryUtils {
                 // Extract the value for the key called "established"
                 String established = currentCollege.getString("established_in");
 
+                // Extract the value for the key called "college_image_url"
+
+                String college_image_url = currentCollege.isNull("college_image_url")?defaultCollegeImageUrl:currentCollege.getString("college_image_url");
+
                 // Create a new {@link College} object with the city, latitude, longitude
                 // from the JSON response.
-                College college = new College(title, city, latitude, longitude, description, established);
+                College college = new College(title, city, latitude, longitude, description, established,college_image_url);
 
                 // Add the new {@link College} to the list of earthquakes.
                 colleges.add(college);
