@@ -50,9 +50,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(20.5937, 82.9629)));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(4));
 
         //Attach Click Listener to search Button
         searchButton = (Button)findViewById(R.id.searchButton);
