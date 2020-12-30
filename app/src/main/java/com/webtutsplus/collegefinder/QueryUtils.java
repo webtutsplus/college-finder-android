@@ -1,4 +1,4 @@
-package com.example.collegefinder;
+package com.webtutsplus.collegefinder;
 
 import android.text.TextUtils;
 import android.util.Log;

@@ -1,4 +1,4 @@
-package com.example.collegefinder;
+package com.webtutsplus.collegefinder;
 
 public class College {
     private String mTitle;

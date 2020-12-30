@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.collegefinder">
+    package="com.webtutsplus.collegefinder">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -31,10 +31,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${mapsApiKey}" />
 
-        <activity android:name=".InfoActivity" />
+        <activity android:name="com.webtutsplus.collegefinder.InfoActivity" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name="com.webtutsplus.collegefinder.MapsActivity"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
