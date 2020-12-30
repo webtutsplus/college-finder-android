@@ -6,11 +6,10 @@ import androidx.fragment.app.FragmentActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.Toast;
+
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,6 +26,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private List<College> mCollegeList;
     private String url = "http://134.209.156.1:5000/api";
+    private String spatialUrl = "http://134.209.156.1:5000/api/spatial_search?";
+    private Button searchButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,24 +38,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-//        Button button = new Button(this);
-//        button.setText("Search this area");
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        lp.gravity=Gravity.FILL_HORIZONTAL;
-//        addContentView(button,lp);
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                // TODO Auto-generated method stub
-//                //Intent i=new Intent(this,SecondActivity.class);
-//                //startActivity(i);
-//
-//            }
-//        });
-
 
     }
 
@@ -70,9 +54,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        //Attach Click Listener to search Button
+        searchButton = (Button)findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LatLng center = mMap.getCameraPosition().target;
+                double latitude = center.latitude;
+                double longitude = center.longitude;
+
+                StringBuilder query = new StringBuilder(spatialUrl);
+                query.append("latitude=");
+                query.append(latitude);
+                query.append("&longitude=");
+                query.append(longitude);
+                query.append("&radius=10");
+
+                //Marking the center of the map and displaying the coordinates.
+                //mMap.addMarker(new MarkerOptions().position(center));
+                //Toast.makeText(getApplicationContext(),query.toString(),Toast.LENGTH_LONG).show();
+
+                final CollegeAsyncTask queryTask = new CollegeAsyncTask();
+                queryTask.execute(query.toString());
+
+            }
+        });
+
         //Fetch Colleges from API
-        CollegeAsyncTask task = new CollegeAsyncTask();
-        task.execute(url);
+//        final CollegeAsyncTask task = new CollegeAsyncTask();
+//        task.execute(url);
     }
 
 
@@ -88,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         @Override
         protected void onPostExecute(List<College> result) {
             mCollegeList = result;
-            for  (int i = 0; i < 5; i++) {
+            for  (int i = 0; i < mCollegeList.size(); i++) {
                 College currentCollege = mCollegeList.get(i);
                 Double latitude = Double.parseDouble(currentCollege.getmLatitude());
                 Double longitude = Double.parseDouble(currentCollege.getmLongitude());
@@ -98,8 +108,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng coordinate = new LatLng(latitude, longitude);
                 mMap.addMarker(new MarkerOptions().position(coordinate).title(city).snippet(title)).setTag(currentCollege);
             }
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(20.5937, 82.9629)));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(4));
+
+            //Center map to India
+            //mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(20.5937, 82.9629)));
+            //mMap.moveCamera(CameraUpdateFactory.zoomTo(4));
             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
                 public void onInfoWindowClick(Marker marker) {
