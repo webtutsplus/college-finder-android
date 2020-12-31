@@ -62,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Getting the latitude longitude coordinates of the center point of screen
                 LatLng center = mMap.getCameraPosition().target;
                 double latitude = center.latitude;
                 double longitude = center.longitude;
