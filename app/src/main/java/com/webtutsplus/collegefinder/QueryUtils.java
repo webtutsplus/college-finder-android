@@ -90,7 +90,7 @@ public final class QueryUtils {
             return null;
         }
 
-        // Create an empty ArrayList that we can start adding earthquakes to
+        // Create an empty ArrayList that we can start adding colleges to
         List<College> colleges = new ArrayList<>();
 
         // Try to parse the JSON response string. If there's a problem with the way the JSON
@@ -102,13 +102,13 @@ public final class QueryUtils {
             JSONObject baseJsonResponse = new JSONObject(collegeJSON);
 
             // Extract the JSONArray associated with the key called "features",
-            // which represents a list of features (or earthquakes).
+            // which represents a list of features (or colleges).
             JSONArray collegeArray = baseJsonResponse.getJSONArray("colleges");
 
-            // For each earthquake in the earthquakeArray, create an {@link Earthquake} object
+            // For each colleges in the collegeArray, create an {@link college} object
             for (int i = 0; i < collegeArray.length(); i++) {
 
-                // Get a single earthquake at position i within the list of earthquakes
+                // Get a single college at position i within the list of college
                 JSONObject currentCollege = collegeArray.getJSONObject(i);
 
                 // Extract the value for the key called "title"
@@ -137,7 +137,7 @@ public final class QueryUtils {
                 // from the JSON response.
                 College college = new College(title, city, latitude, longitude, description, established,college_image_url);
 
-                // Add the new {@link College} to the list of earthquakes.
+                // Add the new {@link College} to the list of college.
                 colleges.add(college);
             }
 
@@ -145,10 +145,10 @@ public final class QueryUtils {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the college JSON results", e);
         }
 
-        // Return the list of earthquakes
+        // Return the list of college
         return colleges;
     }
 
@@ -167,7 +167,7 @@ public final class QueryUtils {
         }
         List<College> colleges = extractFeatureFromJson(jsonResponse);
 
-        // Return the list of {@link Earthquake}s
+        // Return the list of {@link college}s
         return colleges;
     }
 }
