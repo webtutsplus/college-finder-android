@@ -105,7 +105,7 @@ public final class QueryUtils {
             // which represents a list of features (or colleges).
             JSONArray collegeArray = baseJsonResponse.getJSONArray("colleges");
 
-            // For each colleges in the collegeArray, create an {@link college} object
+            // For each college in the collegeArray, create an {@link college} object
             for (int i = 0; i < collegeArray.length(); i++) {
 
                 // Get a single college at position i within the list of college
