@@ -29,13 +29,13 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${mapsApiKey}" />
+            android:value="AIzaSyDt-Tm4h1AHCUaPM_dYRhV0PZ_alcnZN1E" />
 
         <activity android:name="com.webtutsplus.collegefinder.InfoActivity" />
 
         <activity
             android:name="com.webtutsplus.collegefinder.MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

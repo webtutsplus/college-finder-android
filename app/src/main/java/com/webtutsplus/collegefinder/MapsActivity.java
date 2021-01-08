@@ -1,24 +1,35 @@
 package com.webtutsplus.collegefinder;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.Toast;
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -109,8 +120,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String title = currentCollege.getmTitle();
                 String city = currentCollege.getmCity();
 
+
+
                 LatLng coordinate = new LatLng(latitude, longitude);
-                mMap.addMarker(new MarkerOptions().position(coordinate).title(city).snippet(title)).setTag(currentCollege);
+                MarkerOptions markerOptions = new MarkerOptions().icon(getBitmapDescriptor(getApplicationContext(), R.drawable.ic_baseline_local_library_24));
+                mMap.addMarker(markerOptions.position(coordinate).title(city).snippet(title)).setTag(currentCollege);
             }
 
             //Center map to India
@@ -129,6 +143,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     startActivity(collegeInfo);
                 }
             });
+        }
+
+        private BitmapDescriptor getBitmapDescriptor(Context context, int icon) {
+            Drawable vd = ContextCompat.getDrawable(context, icon);
+            int w = vd.getIntrinsicWidth();
+            int h = vd.getIntrinsicHeight();
+            vd.setBounds(0, 0, w, h);
+            Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(bitmap);
+            vd.draw(c);
+            return BitmapDescriptorFactory.fromBitmap(bitmap);
         }
     }
 }
