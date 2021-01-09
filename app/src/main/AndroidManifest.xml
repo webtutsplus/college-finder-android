@@ -29,7 +29,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDt-Tm4h1AHCUaPM_dYRhV0PZ_alcnZN1E" />
+            android:value="${mapsApiKey}" />
 
         <activity android:name="com.webtutsplus.collegefinder.InfoActivity" />
 

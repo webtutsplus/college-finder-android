@@ -68,6 +68,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(20.5937, 82.9629)));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(4));
 
+        Toast.makeText(getApplicationContext(),"Zoom in on a city and tap on the FIND COLLEGES Button", Toast.LENGTH_LONG).show();
+
         //Attach Click Listener to search Button
         searchButton = (Button)findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
